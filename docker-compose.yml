@@ -1,0 +1,60 @@
+version: '3.2'
+
+services:
+  backend:
+    build: 
+      context: .
+      dockerfile: backend/Dockerfile
+    ports:
+      - 21080:80
+    volumes:
+      # Re-use local composer cache via host-volume
+      - ~/.composer-docker/cache:/root/.composer/cache:delegated
+      # Mount source-code for development
+      - ./:/app
+    depends_on:     
+      - mysql
+    environment:
+      - DB_HOST=mysql
+      - DB_PORT=3306
+      - DB_NAME=yii2advanced
+      - DB_USER=yii2advanced
+      - DB_PASSWORD=secret
+      - DB_CHARSET=utf8
+      - YII_ENV=dev
+      - YII_DEBUG=true
+      - COOKIE_KEY=secret
+      - MYSQL_ROOT_PASSWORD=verysecret
+  mysql:
+    image: mysql:5.7
+    ports:
+      - 3306:3306
+    environment:
+      - MYSQL_ROOT_PASSWORD=verysecret
+      - MYSQL_DATABASE=yii2advanced
+      - MYSQL_USER=yii2advanced
+      - MYSQL_PASSWORD=secret
+
+  tests:
+    build:
+      context: .
+      dockerfile: backend/Dockerfile
+    volumes:
+      - ./:/app
+    depends_on:
+      - mysql
+    environment:
+      - DB_HOST=mysql
+      - DB_PORT=3306
+      - DB_NAME=yii2_test
+      - DB_USER=yii2advanced
+      - DB_PASSWORD=secret
+      - DB_CHARSET=utf8
+      - YII_ENV=test
+      - YII_DEBUG=false
+    command: >
+      sh -c "
+        sleep 5 &&
+        php yii migrate --interactive=0 &&
+        vendor/bin/codecept run --html
+      "
