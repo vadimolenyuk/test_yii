@@ -47,7 +47,12 @@ fi
 if [ "$YII_ENV" = "dev" ]; then
 
   if [ ! -d /app/vendor ]; then
-    composer install --prefer-dist --no-interaction --optimize-autoloader
+    composer install \
+    --prefer-dist \
+    --no-interaction \
+    --optimize-autoloader \
+    --no-progress \
+    --no-cache
   fi
   if [ ! -f /app/backend/web/index.php ]; then
     php init --env=Development --overwrite=All
