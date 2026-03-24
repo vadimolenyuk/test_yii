@@ -2,11 +2,11 @@
     <a href="https://github.com/yiisoft" target="_blank">
         <img src="https://avatars0.githubusercontent.com/u/993323" height="100px">
     </a>
-    <h1 align="center">Yii 2 Advanced Project Template</h1>
+    <h1 align="center">PHP BE Dev Yii 2</h1>
     <br>
 </p>
 
-## Steps to get your project up and running
+## Steps to get test project up and running
 
 1. **Create an `env` file** using the example provided.
 2. **Start the Docker environment**:
