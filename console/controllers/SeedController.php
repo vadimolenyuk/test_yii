@@ -1,8 +1,8 @@
 <?php
 namespace console\controllers;
 
-use app\models\Album;
-use app\models\User;
+use backend\models\Album;
+use backend\models\User;
 use Yii;
 use yii\console\Controller;
 use yii\console\ExitCode;

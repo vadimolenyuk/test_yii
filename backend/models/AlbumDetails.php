@@ -1,5 +1,5 @@
 <?php
-namespace app\models;
+namespace backend\models;
 
 class AlbumDetails extends Album
 {

@@ -32,7 +32,7 @@ class SwaggerController extends Controller
                 'class' => \yii\filters\AccessControl::class,
                 'rules' => [
                     [
-                        'allow' => YII_ENV_DEV,   // Только для разработки
+                        'allow' => YII_ENV_DEV,
                         'actions' => ['doc', 'api'],
                     ],
                 ],

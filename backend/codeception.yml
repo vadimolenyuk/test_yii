@@ -13,3 +13,8 @@ modules:
     config:
         Yii2:
             configFile: 'config/codeception-local.php'
+    enabled:
+        - Yii2:
+            part: [orm, fixtures]  
+            configFile: 'config/codeception-local.php'
+        - Asserts

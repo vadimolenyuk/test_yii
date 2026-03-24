@@ -2,11 +2,10 @@
 
 namespace backend\controllers;
 
-use app\models\Album;
-use app\models\AlbumDetails;
-use app\models\AlbumList;
-use app\models\User;
-use app\models\UserList;
+use backend\models\AlbumDetails;
+use backend\models\AlbumList;
+use backend\models\User;
+use backend\models\UserList;
 use Yii;
 use yii\web\Response;
 use yii\web\Controller;

@@ -5,6 +5,7 @@ services:
     build: 
       context: .
       dockerfile: backend/Dockerfile
+    env_file: env
     ports:
       - 21080:80
     volumes:
@@ -39,6 +40,7 @@ services:
     build:
       context: .
       dockerfile: backend/Dockerfile
+    env_file: env    
     volumes:
       - ./:/app
     depends_on:
@@ -50,11 +52,6 @@ services:
       - DB_USER=yii2advanced
       - DB_PASSWORD=secret
       - DB_CHARSET=utf8
+      - MYSQL_ROOT_PASSWORD=verysecret
       - YII_ENV=test
       - YII_DEBUG=false
-    command: >
-      sh -c "
-        sleep 5 &&
-        php yii migrate --interactive=0 &&
-        vendor/bin/codecept run --html
-      "

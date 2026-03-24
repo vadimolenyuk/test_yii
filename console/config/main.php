@@ -7,6 +7,12 @@ $params = array_merge(
     require __DIR__ . '/params-local.php'
 );
 
+if (!getenv('demoPassword')) {
+    throw new yii\base\Exception("Missing demo password");
+}
+
+$params['demoPassword'] = getenv('demoPassword');
+
 return [
     'id' => 'app-console',
     'basePath' => dirname(__DIR__),
