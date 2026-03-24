@@ -1,7 +1,7 @@
 #!/bin/bash
 set -e
 cleanup_local_configs() {
-  local CONFIG_DIRS=(backend/config common/config console/config)
+  local CONFIG_DIRS=(backend/config common/config console/config /environments/dev/common/config /environments/prod/common/config)
   local FILES_TO_DELETE=(codeception-local.php test-local.php main-local.php params-local.php)
 
   for dir in "${CONFIG_DIRS[@]}"; do
