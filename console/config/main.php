@@ -17,6 +17,7 @@ return [
     'id' => 'app-console',
     'basePath' => dirname(__DIR__),
     'bootstrap' => ['log'],
+    
     'controllerNamespace' => 'console\controllers',
     'aliases' => [
         '@bower' => '@vendor/bower-asset',
@@ -29,6 +30,21 @@ return [
           ],
     ],
     'components' => [
+            'db' => [
+            'class' => \yii\db\Connection::class,
+            'dsn' => sprintf(
+                'mysql:host=%s;port=%s;dbname=%s',
+                getenv('DB_HOST') ?: 'localhost',
+                getenv('DB_PORT') ?: '3306',
+                getenv('DB_NAME') ?: 'yii2advanced'
+            ),
+            'username' => getenv('DB_USER') ?: 'root',
+            'password' => getenv('DB_PASSWORD') ?: '',
+            'charset' => getenv('DB_CHARSET') ?: 'utf8',
+            'enableSchemaCache' => getenv('YII_ENV') === 'prod',
+            'schemaCacheDuration' => 3600,
+            'schemaCache' => 'cache',
+        ],
         'log' => [
             'targets' => [
                 [

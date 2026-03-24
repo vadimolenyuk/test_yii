@@ -10,8 +10,40 @@ cleanup_local_configs() {
         echo "Deleting $dir/$file"
         rm -f "$dir/$file"
       fi
+      if [[ "$file" == "main-local.php" || "$file" == "params-local.php" ]]; then
+        echo "Creating empty $dir/$file"
+        mkdir -p "$dir"
+        echo "<?php return [];" > "$dir/$file"
+      fi
     done
   done
+  CONFIG_FILE="/app/backend/config/codeception-local.php"
+
+if [ ! -f "$CONFIG_FILE" ]; then
+  echo "Creating $CONFIG_FILE..."
+  cat << 'EOF' > "$CONFIG_FILE"
+<?php
+return [
+    'id' => 'app-backend-test',
+    'basePath' => dirname(__DIR__),
+    'components' => [
+        'db' => [
+            'class' => \yii\db\Connection::class,
+            'dsn' => sprintf(
+                'mysql:host=%s;port=%s;dbname=%s',
+                getenv('DB_HOST') ?: 'localhost',
+                getenv('DB_PORT') ?: '3306',
+                getenv('DB_NAME') ?: 'yii2_test'
+            ),
+            'username' => getenv('DB_USER') ?: 'root',
+            'password' => getenv('DB_PASSWORD') ?: '',
+            'charset' => getenv('DB_CHARSET') ?: 'utf8',
+        ],
+    ],
+];
+EOF
+  echo "$CONFIG_FILE created successfully."
+fi
 }
 echo "Waiting for MySQL to be ready..."
 counter=0
